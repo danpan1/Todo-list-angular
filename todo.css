@@ -1,6 +1,7 @@
 body {
     font-size: 18px;
 }
+
 td:nth-child(4) {
     position: relative;
     width: 30px;
@@ -69,6 +70,15 @@ span {
 .sortorder.reverse:after {
     content: '\25bc';
 }
+
 .Bg3 {
-    background-color:#f2dede;
+    background-color: #f2dede;
+}
+
+.createForm {
+    display: inline-block;
+}
+.tasksLeft {
+    float:right;
+    display: inline-block;
 }

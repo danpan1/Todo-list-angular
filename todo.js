@@ -34,7 +34,6 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
             priority: '1',
             done: false
         }];
-
         $scope.predicate = 'summary'; //defaul sort field
         $scope.reverse = true; //sorting direction
     }
@@ -42,6 +41,7 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
     $scope.order = function(predicate) {
         $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
         $scope.predicate = predicate;
+        $scope.saveToLocalStorage();
     };
 
     $scope.addTodo = function() {
@@ -53,8 +53,9 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
             done: false
         });
         $scope.todoSummary = '';
-        $scope.priority = 2;
+        $scope.priority = '2';
         $scope.dueDate = new Date();
+        $scope.saveToLocalStorage();
     };
 
     $scope.remaining = function() {
@@ -100,6 +101,7 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
     };
 
     $scope.saveToLocalStorage = function() {
+        console.log("save");
         $localStorage.todos = $scope.todos;
         $localStorage.predicate = $scope.predicate;
         $localStorage.reverse = $scope.reverse;

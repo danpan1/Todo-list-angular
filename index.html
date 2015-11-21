@@ -13,7 +13,7 @@
 <body>
     <div ng-controller="TodoCtrl" class="container">
         <div class="createTask">
-            <form ng-submit="addTodo()" class="form-inline">
+            <form ng-submit="addTodo()" class="form-inline createForm">
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="todoSummary" size="30" placeholder="New task" ng-click="endEditMode()">
                 </div>
@@ -29,6 +29,7 @@
                 </div>
                 <button class="btn btn-default" type="submit">add</button>
             </form>
+            <span class="tasksLeft">Todo {{remaining()}}/{{todos.length}} [<a href="" ng-click="archive()">clear done tasks</a>]</span>
         </div>
         <table class="table table-hover">
             <tr>
