@@ -4,9 +4,9 @@ Write ToDo web application without server.
 Application should provide ability
 +* Add a task with title 
 +* List tasks in sorted in reverse order by task title
-* Edit a task
++* Edit a task
 +* Mark a task as completed
-* Remove a task
++* Remove a task
 * Persist tasks between working sessions (it could be LocalStorage)
 
 Note: it is ok for customer if you do something quick and provide additionally features, but no penalty if you don't.

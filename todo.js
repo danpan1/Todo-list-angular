@@ -43,12 +43,17 @@ TodoApp.controller('TodoCtrl', function($scope) {
     };
 
     $scope.editSubmit = function($event) {
-    	previousEdited = false;
+        previousEdited = false;
         showEdit($event.currentTarget.parentElement);
         this.todo.summary = $event.currentTarget.querySelector('input').value;
     };
 
+    $scope.removeTask = function() {
+        $scope.todos.splice($scope.todos.indexOf(this.todo), 1);
+    };
+
     function showEdit(task) {
+        task.querySelector(".removeBtn").hidden = !task.querySelector(".removeBtn").hidden;
         task.querySelector(".todoCheckbox").hidden = !task.querySelector(".todoCheckbox").hidden;
         task.querySelector(".todoSummary").hidden = !task.querySelector(".todoSummary").hidden;
         task.querySelector(".editForm").classList.toggle("disabled");

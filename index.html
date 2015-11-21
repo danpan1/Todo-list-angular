@@ -19,10 +19,11 @@
         <span>Todo {{remaining()}} of {{todos.length}}</span> [ <a href="" ng-click="archive()">archive</a> ]
         <ul class="unstyled">
             <li ng-repeat="todo in todos | orderBy:'-summary'">
-                <input type="checkbox" class = "todoCheckbox" ng-model="todo.done">
+                <input type="checkbox" class="todoCheckbox" ng-model="todo.done">
                 <span ng-click="edit($event)" class="done-{{todo.done}} todoSummary">{{todo.summary}}</span>
-                <form class = "editForm disabled"  ng-submit="editSubmit($event)">
-                    <input type="text" size="30" value="{{todo.summary}}" >
+                <img ng-click="removeTask()" src="remove.jpeg" class="removeBtn" height="20" width="20" alt="">
+                <form class="editForm disabled" ng-submit="editSubmit($event)">
+                    <input type="text" size="30" value="{{todo.summary}}">
                     <input class="btn-primary" type="submit" value="ok">
                 </form>
             </li>

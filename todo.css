@@ -11,3 +11,6 @@ label{
 .disabled{
 	display: none;
 }
+.removeBtn{
+	margin-left: 50px;
+}
