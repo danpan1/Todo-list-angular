@@ -2,43 +2,42 @@ var TodoApp = angular.module('TodoApp', ['ngStorage']);
 
 TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
 
-    var currentEdited = false;
-    var currentEditedIndex = null;
-    // $localStorage.todos = false;
+    var currentEdited = false, //current edited Task 
+        currentEditedIndex = null; //current edited Task index in $scope.todos
+    $scope.priority = '2'; // default priority for creating task
+    $scope.dueDate = new Date(); // default date = today
+
+    //load user local storage
     if ($localStorage.todos) {
-        // debugger
+        //change format for dueDate field
         angular.forEach($localStorage.todos, function(value, key) {
             value.dueDate = new Date(value.dueDate);
         });
         $scope.todos = $localStorage.todos;
+        $scope.predicate = $localStorage.predicate;
+        $scope.reverse = $localStorage.reverse;
     } else {
+        //default state for example
         $scope.todos = [{
             summary: 'a task',
-            dueDate: '2015-12-01',
-            priority: 'high',
+            dueDate: new Date('2015-12-01'),
+            priority: '3',
             done: true
         }, {
             summary: 'b task',
-            dueDate: '2015-11-02',
-            priority: 'low',
+            dueDate: new Date('2015-11-02'),
+            priority: '2',
             done: false
         }, {
             summary: 'z task',
-            dueDate: '2015-10-03',
-            priority: 'low',
+            dueDate: new Date('2015-10-03'),
+            priority: '1',
             done: false
         }];
 
-        angular.forEach($scope.todos, function(value, key) {
-            value.dueDate = new Date(value.dueDate);
-        });
-
+        $scope.predicate = 'summary'; //defaul sort field
+        $scope.reverse = true; //sorting direction
     }
-
-    $scope.predicate = 'summary';
-    $scope.reverse = true;
-    $scope.priority = 'medium';
-    $scope.dueDate = new Date();
 
     $scope.order = function(predicate) {
         $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
@@ -54,7 +53,8 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
             done: false
         });
         $scope.todoSummary = '';
-        $scope.priority = 'medium';
+        $scope.priority = 2;
+        $scope.dueDate = new Date();
     };
 
     $scope.remaining = function() {
@@ -100,10 +100,9 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
     };
 
     $scope.saveToLocalStorage = function() {
-        //Local storage save
-        console.log("save");
-        console.log($scope.todos);
         $localStorage.todos = $scope.todos;
+        $localStorage.predicate = $scope.predicate;
+        $localStorage.reverse = $scope.reverse;
     }
 
     $scope.load = function() {
