@@ -6,29 +6,81 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
     <script src="todo.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="todo.css">
 </head>
 
 <body>
-    <div ng-controller="TodoCtrl">
-        <h2>Create new task</h2>
-        <form ng-submit="addTodo()">
-            <input type="text" ng-model="todoSummary" size="30" placeholder="New task" ng-click="endEditMode()">
-            <input class="btn-primary" type="submit" value="add">
-        </form>
+    <div ng-controller="TodoCtrl" class="container">
+        <div class="createTask">
+            <!-- <h2>Create new task</h2> -->
+            <form ng-submit="addTodo()" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="todoSummary" size="30" placeholder="New task" ng-click="endEditMode()" id="exampleInputEmail3">
+                </div>
+                <div class="form-group">
+                    <select name="priority" id="priority" ng-model="priority" ng-click="endEditMode()">
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="date" id="exampleInput" name="dueDate" ng-model="dueDate" placeholder="yyyy-MM-dd" min="2015-01-01" max="2016-12-31"  required/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-default" type="submit">add</button>
+                </div>
+            </form>
+        </div>
         <h2>To do list</h2>
         <span>Tasks {{remaining()}} of {{todos.length}}</span> [ <a href="" ng-click="archive()">archive done tasks</a> ]
-        <ul class="unstyled">
-            <li ng-repeat="todo in todos | orderBy:'-summary'">
-                <input type="checkbox" class="todoCheckbox" ng-model="todo.done">
-                <span ng-click="edit($event)" class="done-{{todo.done}} todoSummary">{{todo.summary}}</span>
-                <img ng-click="removeTask()" src="https://daks2k3a4ib2z.cloudfront.net/550e007d546198ec34eaa47d/552026168177a9a77de94f36_close-512.png" class="removeBtn" height="20" width="20" alt="">
-                <form class="editForm disabled" ng-submit="editSubmit($event)">
-                    <input type="text" size="30" value="{{todo.summary}}">
-                    <input class="btn-primary" type="submit" value="ok">
-                </form>
-            </li>
-        </ul>
+        <table class="friend">
+            <tr>
+                <th>
+                    <a href="" ng-click="order('summary')">Summary</a>
+                    <span class="sortorder" ng-show="predicate === 'summary'" ng-class="{reverse:reverse}"></span>
+                </th>
+                <th>
+                    <a href="" ng-click="order('priority')">Priority</a>
+                    <span class="sortorder" ng-show="predicate === 'priority'" ng-class="{reverse:reverse}"></span>
+                </th>
+                <th>
+                    <a href="" ng-click="order('dueDate')">Due Date</a>
+                    <span class="sortorder" ng-show="predicate === 'dueDate'" ng-class="{reverse:reverse}"></span>
+                </th>
+                <th>
+                </th>
+            </tr>
+            <tr ng-repeat="todo in todos | orderBy:predicate:reverse">
+                <td>
+                    <input type="checkbox" class="todoCheckbox" ng-model="todo.done">
+                    <span ng-click="edit($event)" class="done-{{todo.done}} todoSummary">{{todo.summary}}</span>
+                    <form class="editForm disabled" ng-submit="editSubmit($event)">
+                        <input type="text" size="30" value="{{todo.summary}}">
+                        <input class="btn btn-lg btn-primary" type="submit" value="ok">
+                    </form>
+                </td>
+                <td>
+                    <select name="priority" id="priority" ng-model="todo.priority">
+                        <option value="medium">Medium</option>
+                        <!-- not selected / blank option -->
+                        <option value="high">High</option>
+                        <!-- interpolation -->
+                        <option value="low">Low</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="date" id="exampleInput" name="dueDate" ng-model="todo.dueDate" placeholder="yyyy-MM-dd" min="2015-01-01" max="2016-12-31" ng-change="saveToLocalStorage()" required/>
+                </td>
+                <td>
+                    <img ng-click="removeTask()" src="https://daks2k3a4ib2z.cloudfront.net/550e007d546198ec34eaa47d/552026168177a9a77de94f36_close-512.png" class="removeBtn" height="20" width="20" alt="">
+                </td>
+            </tr>
+        </table>
     </div>
 </body>
 

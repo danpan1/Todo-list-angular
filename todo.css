@@ -1,12 +1,60 @@
+body {
+    font-size: 18px;
+    width: 100%;
+}
+
+html {
+    width: 100%;
+}
+
+td,
+tr {
+    position: relative;
+}
+
+
+td:nth-child(4) {
+    width: 20px;
+}
+
+td:nth-child(3) {
+    width: 100px;
+}
+
+td:nth-child(2) {
+    width: 100px;
+}
+
+td:nth-child(1) {
+    width: 400px;
+}
+
 .done-true {
     text-decoration: line-through;
     color: grey;
+}
+
+.todoSummary {
+    width: 500px;
 }
 
 .unstyled {
     list-style: none;
     -webkit-padding-start: 0;
     padding-left: 10px;
+    width: 100%;
+}
+
+li {
+    position: relative;
+    padding: 10px;
+    border: 1px solid blanchedalmond;
+    margin: 2px;
+    width: 100%;
+}
+
+li:hover {
+    background-color: blanchedalmond;
 }
 
 .editForm {
@@ -14,8 +62,17 @@
 }
 
 .removeBtn {
-    margin-left: 10px;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
     cursor: pointer;
+    width: 20px;
+    height: 20px;
+    top: 0;
+}
+
+.removeBtn:hover {
+    background-color: rgba(249, 9, 9, 0.88);
 }
 
 span {
@@ -27,7 +84,7 @@ span {
 }
 
 .editItem .todoCheckbox {
-    display: none;
+    /*display: none;*/
 }
 
 .editItem .todoSummary {
@@ -36,4 +93,19 @@ span {
 
 .editItem .editForm {
     display: inline-block;
+}
+
+.btn {}
+
+.createTask {
+    background-color: rgba(128, 128, 128, 0.66);
+    padding: 10px;
+}
+
+.sortorder:after {
+    content: '\25b2';
+}
+
+.sortorder.reverse:after {
+    content: '\25bc';
 }
