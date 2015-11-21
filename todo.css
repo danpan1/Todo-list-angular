@@ -1,16 +1,36 @@
 .done-true {
-  text-decoration: line-through;
-  color: grey;
+    text-decoration: line-through;
+    color: grey;
 }
-label{
+
+li {
+    list-style: none;
+}
+ul {
+    list-style: none;
+    -webkit-padding-start: 0;
+    padding-left: 10px;
+}
+
+label {
+    cursor: pointer;
+}
+
+.editForm {
+    display: inline-block;
+}
+
+.disabled {
+    display: none;
+}
+
+.removeBtn {
+    margin-left: 10px;
+    cursor: pointer;
+}
+span {
 	cursor: pointer;
 }
-.editForm{
-	display: inline-block;
-}
-.disabled{
-	display: none;
-}
-.removeBtn{
-	margin-left: 50px;
+input{
+	cursor: pointer;
 }

@@ -1,14 +1,20 @@
-var TodoApp = angular.module('TodoApp', []);
+var TodoApp = angular.module('TodoApp', ['ngStorage']);
 
-TodoApp.controller('TodoCtrl', function($scope) {
+TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
     var previousEdited = false;
+
     $scope.todos = [{
-        summary: 'learn angular',
+        summary: 'a task',
         done: true
     }, {
-        summary: 'build an angular app',
+        summary: 'b task',
+        done: false
+    }, {
+        summary: 'z task',
         done: false
     }];
+
+    if ($localStorage.todos) $scope.todos = $localStorage.todos;
 
     $scope.addTodo = function() {
         if ($scope.todoSummary === '' || $scope.todoSummary === undefined) return;
@@ -33,6 +39,7 @@ TodoApp.controller('TodoCtrl', function($scope) {
         angular.forEach(oldTodos, function(todo) {
             if (!todo.done) $scope.todos.push(todo);
         });
+        $scope.save();
     };
 
     $scope.edit = function($event) {
@@ -46,11 +53,21 @@ TodoApp.controller('TodoCtrl', function($scope) {
         previousEdited = false;
         showEdit($event.currentTarget.parentElement);
         this.todo.summary = $event.currentTarget.querySelector('input').value;
+        $scope.save();
     };
 
     $scope.removeTask = function() {
         $scope.todos.splice($scope.todos.indexOf(this.todo), 1);
+        $scope.save();
     };
+
+    $scope.save = function() {
+        $localStorage.todos = $scope.todos;
+    }
+
+    $scope.load = function() {
+        $scope.todos = $localStorage.todos;
+    }
 
     function showEdit(task) {
         task.querySelector(".removeBtn").hidden = !task.querySelector(".removeBtn").hidden;
@@ -59,15 +76,3 @@ TodoApp.controller('TodoCtrl', function($scope) {
         task.querySelector(".editForm").classList.toggle("disabled");
     }
 });
-
-// describe('TodoCtrl', function() {
-
-//     it('should create "phones" model with 3 phones', function() {
-//         var scope = {},
-//             ctrl = new PhoneListCtrl(scope);
-
-//         expect(scope.phones.length).toBe(3);
-
-//     });
-
-// });

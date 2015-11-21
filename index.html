@@ -4,19 +4,20 @@
 <head>
     <title>ToDo</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
     <script src="todo.js"></script>
     <link rel="stylesheet" href="todo.css">
 </head>
 
 <body>
     <div ng-controller="TodoCtrl">
-        <h2>New task</h2>
+        <h2>Create new task</h2>
         <form ng-submit="addTodo()">
             <input type="text" ng-model="todoSummary" size="30" placeholder="New task">
             <input class="btn-primary" type="submit" value="add">
         </form>
-        <h2>ToDo list</h2>
-        <span>Todo {{remaining()}} of {{todos.length}}</span> [ <a href="" ng-click="archive()">archive</a> ]
+        <h2>To do list</h2>
+        <span>Tasks {{remaining()}} of {{todos.length}}</span> [ <a href="" ng-click="archive()">archive</a> ]
         <ul class="unstyled">
             <li ng-repeat="todo in todos | orderBy:'-summary'">
                 <input type="checkbox" class="todoCheckbox" ng-model="todo.done">
