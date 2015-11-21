@@ -82,3 +82,7 @@ span {
     float:right;
     display: inline-block;
 }
+.toDoContainer{
+    max-width: 1024px;
+    margin: 0 auto;
+}

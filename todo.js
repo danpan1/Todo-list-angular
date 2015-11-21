@@ -105,12 +105,12 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
         $localStorage.todos = $scope.todos;
         $localStorage.predicate = $scope.predicate;
         $localStorage.reverse = $scope.reverse;
-    }
+    };
 
     $scope.load = function() {
         //Local storage load
         $scope.todos = $localStorage.todos;
-    }
+    };
 
     $scope.endEditMode = function() {
         if (currentEdited) {
@@ -121,6 +121,6 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
             currentEdited = false;
         }
 
-    }
+    };
 
 });
