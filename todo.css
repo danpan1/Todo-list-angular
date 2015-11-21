@@ -5,3 +5,9 @@
 label{
 	cursor: pointer;
 }
+.editForm{
+	display: inline-block;
+}
+.disabled{
+	display: none;
+}

@@ -12,17 +12,19 @@
     <div ng-controller="TodoCtrl">
         <h2>New task</h2>
         <form ng-submit="addTodo()">
-            <input type="text" ng-model="todoText" size="30" placeholder="New task">
+            <input type="text" ng-model="todoSummary" size="30" placeholder="New task">
             <input class="btn-primary" type="submit" value="add">
         </form>
         <h2>ToDo list</h2>
         <span>Todo {{remaining()}} of {{todos.length}}</span> [ <a href="" ng-click="archive()">archive</a> ]
         <ul class="unstyled">
-            <li ng-repeat="todo in todos | orderBy:'-text'">
-                <label>
-                    <input type="checkbox" ng-model="todo.done">
-                    <span class="done-{{todo.done}}">{{todo.text}}</span>
-                </label>
+            <li ng-repeat="todo in todos | orderBy:'-summary'">
+                <input type="checkbox" class = "todoCheckbox" ng-model="todo.done">
+                <span ng-click="edit($event)" class="done-{{todo.done}} todoSummary">{{todo.summary}}</span>
+                <form class = "editForm disabled"  ng-submit="editSubmit($event)">
+                    <input type="text" size="30" value="{{todo.summary}}" >
+                    <input class="btn-primary" type="submit" value="ok">
+                </form>
             </li>
         </ul>
     </div>

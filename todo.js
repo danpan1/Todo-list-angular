@@ -1,21 +1,22 @@
 var TodoApp = angular.module('TodoApp', []);
 
 TodoApp.controller('TodoCtrl', function($scope) {
+    var previousEdited = false;
     $scope.todos = [{
-        text: 'learn angular',
+        summary: 'learn angular',
         done: true
     }, {
-        text: 'build an angular app',
+        summary: 'build an angular app',
         done: false
     }];
 
     $scope.addTodo = function() {
-        if ($scope.todoText === '' || $scope.todoText === undefined) return;
+        if ($scope.todoSummary === '' || $scope.todoSummary === undefined) return;
         $scope.todos.push({
-            text: $scope.todoText,
+            summary: $scope.todoSummary,
             done: false
         });
-        $scope.todoText = '';
+        $scope.todoSummary = '';
     };
 
     $scope.remaining = function() {
@@ -33,6 +34,25 @@ TodoApp.controller('TodoCtrl', function($scope) {
             if (!todo.done) $scope.todos.push(todo);
         });
     };
+
+    $scope.edit = function($event) {
+        if (this.todo.done) return;
+        if (previousEdited) showEdit(previousEdited);
+        showEdit($event.currentTarget.parentElement);
+        previousEdited = $event.currentTarget.parentElement;
+    };
+
+    $scope.editSubmit = function($event) {
+    	previousEdited = false;
+        showEdit($event.currentTarget.parentElement);
+        this.todo.summary = $event.currentTarget.querySelector('input').value;
+    };
+
+    function showEdit(task) {
+        task.querySelector(".todoCheckbox").hidden = !task.querySelector(".todoCheckbox").hidden;
+        task.querySelector(".todoSummary").hidden = !task.querySelector(".todoSummary").hidden;
+        task.querySelector(".editForm").classList.toggle("disabled");
+    }
 });
 
 // describe('TodoCtrl', function() {
