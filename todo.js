@@ -1,8 +1,9 @@
 var TodoApp = angular.module('TodoApp', ['ngStorage']);
 
 TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
-    var previousEdited = false;
 
+    var currentEdited = false;
+    var currentEditedIndex = null;
     $scope.todos = [{
         summary: 'a task',
         done: true
@@ -34,45 +35,56 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
     };
 
     $scope.archive = function() {
+        //Remove DONE tasks from page and data
+        $scope.endEditMode();
         var oldTodos = $scope.todos;
         $scope.todos = [];
         angular.forEach(oldTodos, function(todo) {
             if (!todo.done) $scope.todos.push(todo);
         });
-        $scope.save();
+        $scope.saveToLocalStorage();
     };
 
     $scope.edit = function($event) {
-        if (this.todo.done) return;
-        if (previousEdited) showEdit(previousEdited);
-        showEdit($event.currentTarget.parentElement);
-        previousEdited = $event.currentTarget.parentElement;
+        if (this.todo.done) return; 
+        //hide previous edited item
+        $scope.endEditMode(); 
+        //show current clicked item for editing and put currently edited item to variable
+        currentEditedIndex = $scope.todos.indexOf(this.todo);
+        currentEdited = $event.currentTarget.parentElement;
+        currentEdited.classList.add('editItem');
     };
 
     $scope.editSubmit = function($event) {
-        previousEdited = false;
-        showEdit($event.currentTarget.parentElement);
         this.todo.summary = $event.currentTarget.querySelector('input').value;
-        $scope.save();
+        $scope.endEditMode();
+        $scope.saveToLocalStorage();
     };
 
     $scope.removeTask = function() {
+        //by clicking Remove icon
+        $scope.endEditMode();
         $scope.todos.splice($scope.todos.indexOf(this.todo), 1);
-        $scope.save();
+        $scope.saveToLocalStorage();
     };
 
-    $scope.save = function() {
+    $scope.saveToLocalStorage = function() {
+        //Local storage save
         $localStorage.todos = $scope.todos;
     }
 
     $scope.load = function() {
+        //Local storage load
         $scope.todos = $localStorage.todos;
     }
 
-    function showEdit(task) {
-        task.querySelector(".removeBtn").hidden = !task.querySelector(".removeBtn").hidden;
-        task.querySelector(".todoCheckbox").hidden = !task.querySelector(".todoCheckbox").hidden;
-        task.querySelector(".todoSummary").hidden = !task.querySelector(".todoSummary").hidden;
-        task.querySelector(".editForm").classList.toggle("disabled");
+    $scope.endEditMode = function() {
+        if (currentEdited) {
+            currentEdited.querySelector('.editForm input').value = $scope.todos[currentEditedIndex].summary;
+            currentEdited.classList.remove('editItem');
+            currentEdited = false;
+        }
+
     }
+
 });

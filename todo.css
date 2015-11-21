@@ -3,24 +3,13 @@
     color: grey;
 }
 
-li {
-    list-style: none;
-}
-ul {
+.unstyled {
     list-style: none;
     -webkit-padding-start: 0;
     padding-left: 10px;
 }
 
-label {
-    cursor: pointer;
-}
-
 .editForm {
-    display: inline-block;
-}
-
-.disabled {
     display: none;
 }
 
@@ -28,9 +17,23 @@ label {
     margin-left: 10px;
     cursor: pointer;
 }
+
 span {
-	cursor: pointer;
+    cursor: pointer;
 }
-input{
-	cursor: pointer;
+
+.editItem .removeBtn {
+    display: none;
+}
+
+.editItem .todoCheckbox {
+    display: none;
+}
+
+.editItem .todoSummary {
+    display: none;
+}
+
+.editItem .editForm {
+    display: inline-block;
 }

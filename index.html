@@ -13,16 +13,16 @@
     <div ng-controller="TodoCtrl">
         <h2>Create new task</h2>
         <form ng-submit="addTodo()">
-            <input type="text" ng-model="todoSummary" size="30" placeholder="New task">
+            <input type="text" ng-model="todoSummary" size="30" placeholder="New task" ng-click="endEditMode()">
             <input class="btn-primary" type="submit" value="add">
         </form>
         <h2>To do list</h2>
-        <span>Tasks {{remaining()}} of {{todos.length}}</span> [ <a href="" ng-click="archive()">archive</a> ]
+        <span>Tasks {{remaining()}} of {{todos.length}}</span> [ <a href="" ng-click="archive()">archive done tasks</a> ]
         <ul class="unstyled">
             <li ng-repeat="todo in todos | orderBy:'-summary'">
                 <input type="checkbox" class="todoCheckbox" ng-model="todo.done">
                 <span ng-click="edit($event)" class="done-{{todo.done}} todoSummary">{{todo.summary}}</span>
-                <img ng-click="removeTask()" src="remove.jpeg" class="removeBtn" height="20" width="20" alt="">
+                <img ng-click="removeTask()" src="https://daks2k3a4ib2z.cloudfront.net/550e007d546198ec34eaa47d/552026168177a9a77de94f36_close-512.png" class="removeBtn" height="20" width="20" alt="">
                 <form class="editForm disabled" ng-submit="editSubmit($event)">
                     <input type="text" size="30" value="{{todo.summary}}">
                     <input class="btn-primary" type="submit" value="ok">
