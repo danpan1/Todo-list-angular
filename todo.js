@@ -4,8 +4,8 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
 
     var currentEdited = false, //current edited Task 
         currentEditedIndex = null; //current edited Task index in $scope.todos
-    $scope.priority = '2'; // default priority for creating task
-    $scope.dueDate = new Date(); // default date = today
+    $scope.priority = '2'; // default priority for creating task  = "Medium"
+    $scope.dueDate = new Date(); // default date = "Today"
 
     //load user local storage
     if ($localStorage.todos) {
@@ -39,6 +39,7 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
     }
 
     $scope.order = function(predicate) {
+        //sorting ToDos. predicate : summary, priority, dueDate
         $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
         $scope.predicate = predicate;
         $scope.saveToLocalStorage();
@@ -52,13 +53,16 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
             dueDate: $scope.dueDate,
             done: false
         });
+        //default state for new task
         $scope.todoSummary = '';
         $scope.priority = '2';
         $scope.dueDate = new Date();
+        //save
         $scope.saveToLocalStorage();
     };
 
     $scope.remaining = function() {
+        //Remaining TODO count
         var count = 0;
         angular.forEach($scope.todos, function(todo) {
             count += todo.done ? 0 : 1;
@@ -101,15 +105,9 @@ TodoApp.controller('TodoCtrl', function($scope, $localStorage) {
     };
 
     $scope.saveToLocalStorage = function() {
-        console.log("save");
         $localStorage.todos = $scope.todos;
         $localStorage.predicate = $scope.predicate;
         $localStorage.reverse = $scope.reverse;
-    };
-
-    $scope.load = function() {
-        //Local storage load
-        $scope.todos = $localStorage.todos;
     };
 
     $scope.endEditMode = function() {
